@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <title>Applied Jobs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/postedjobs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body ng-controller="NavbarController">
+    {% include 'navbar.html' %}
+     <div class="posted-jobs-container">
+        <div class="header-section">
+            <h1>Your Posted Jobs</h1>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <i class="fas fa-briefcase"></i>
+                    <div>
+                        <span class="stat-number">{% raw %}{{ postedJobs.length }}{% endraw %}</span>
+                        <span class="stat-label">Total Jobs</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <span class="stat-number">{% raw %}{{ totalApplications }}{% endraw %}</span>
+                        <span class="stat-label">Total Applications</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="jobs-table-container">
+            <div class="table-responsive">
+                <table class="jobs-table">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Job ID</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                            <th>Posted Date</th>
+                            <th>Status</th>
+                            <th>Applications</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% raw %}
+                        <tr ng-repeat="job in postedJobs">
+                            <td data-label="Job Title">{{ job.title }}</td>
+                            <td data-label="Job ID">{{ job.job_id }}</td>
+                            <td data-label="Company">{{ job.company }}</td>
+                            <td data-label="Location">{{ job.city }}, {{ job.country }}</td>
+                            <td data-label="Posted Date">{{ job.posted_date | date:'mediumDate' }}</td>
+                            <td data-label="Status">
+                                <span class="status-badge" ng-class="{
+                                    'active': job.status === 'Active',
+                                    'inactive': job.status === 'Inactive',
+                                    'draft': job.status === 'Draft'
+                                }">
+                                    {{ job.status }}
+                                </span>
+                            </td>
+                            <td data-label="Applications">
+                                <a href="/applicants/{{job.job_id}}" class="applications-count">
+                                    {{ job.application_count || 0 }} <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                            <td data-label="Actions">
+                                <div class="action-buttons">
+                                    <button class="btn-delete" ng-click="deleteJob(job.id)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endraw %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="no-jobs-message" ng-if="postedJobs.length === 0">
+                <img src="{{ url_for('static', filename='images/no-jobs.svg') }}" alt="No jobs posted">
+                <h3>You haven't posted any jobs yet</h3>
+                <p>Start by posting your first job opportunity</p>
+                <a href="/post-job" class="btn-post-job">Post a Job</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    {% include 'login.html' %}
+
+    <!-- Register Modal -->
+    {% include 'register.html' %}
+
+    {% include 'profile.html' %}
+
+    {% include 'notification.html' %}
+
+    {% include 'forgotpass.html' %}
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='script/navbar.js') }}"></script>
+    <script src="{{ url_for('static', filename='script/postedjobs.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{% raw %}
+    <!-- Profile Info Dropdown -->
+<div class="profile-info-modal" ng-show="showProfileInfo && currentUser">
+    <p><strong>Name:</strong> {{ currentUser.fullname }}</p>
+    <p><strong>Email:</strong> {{ currentUser.email }}</p>
+    <button ng-click="logout()">Logout</button>
+  </div>
+  {% endraw %}

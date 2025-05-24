@@ -1,0 +1,32 @@
+<!-- Login Modal -->
+<div class="modal-overlay" ng-show="showLoginModal" ng-click="closeLoginModal()">
+    <div class="modal-content" ng-click="$event.stopPropagation()">
+        <h2>Login</h2>
+        <form ng-submit="loginUser()">
+            <input type="text" placeholder="Username" ng-model="login.username" required>
+            <input type="password" placeholder="Password" ng-model="login.password" required>
+            <div style="text-align: right; margin-bottom: 10px;">
+                <a href="" ng-click="forgotPassword()">Forgot Password?</a>
+            </div>
+
+            <!-- User Type Radio Buttons -->
+            <div class="user-type-container">
+                <label>
+                    <input type="radio" name="loginUserType" 
+                           ng-model="login.userType" 
+                           value="jobSeeker" required>
+                    Job Seeker
+                </label>
+                <label>
+                    <input type="radio" name="loginUserType" 
+                           ng-model="login.userType" 
+                           value="hr">
+                    HR Professional
+                </label>
+            </div>
+            
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" ng-click="switchToRegister()">Register</a></p>
+    </div>
+</div>

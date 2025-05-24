@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+  <title>Job Listings</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/jobs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body ng-controller="JobController">
+
+  {% include 'navbar.html' %}
+  {% include 'login.html' %}
+  {% include 'register.html' %}
+  {% include 'profile.html' %}
+  {% include 'notification.html' %}
+  {% include 'forgotpass.html' %}
+
+  <div class="container">
+    <!-- Left Side Filters -->
+    <div class="filter-panel-wrapper">
+      <div class="filter-panel">
+        <h3 class="desktop-only">Search Filters</h3>
+
+        <div class="filter-item">
+          <label for="keywords">Keywords</label>
+          <input type="text" id="keywords" ng-model="filters.keyword" 
+                 placeholder="e.g., Python, React" ng-change="applyFilters()">
+        </div>
+
+        <div class="filter-item">
+          <label for="location">Location</label>
+          <select id="location" ng-model="filters.location" ng-change="applyFilters()">
+            <option value="">All Locations</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Pune">Pune</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="jobType">Job Type</label>
+          <select id="jobType" ng-model="filters.jobType" ng-change="applyFilters()">
+            <option value="">All Types</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+            <option value="Freelance">Freelance</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="workmode">Work Mode</label>
+          <select id="workmode" ng-model="filters.workmode" ng-change="applyFilters()">
+            <option value="">All Modes</option>
+            <option value="Remote">Remote</option>
+            <option value="On-site">On-site</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="experience">Experience</label>
+          <select id="experience" ng-model="filters.experience" ng-change="applyFilters()">
+            <option value="">Any Experience</option>
+            <option value="">All Experience Levels</option>
+            <option value="Entry Level">Entry Level (0-2 years)</option>
+            <option value="Mid Level">Mid Level (2-5 years)</option>
+            <option value="Senior Level">Senior Level (5+ years)</option>
+            <option value="Executive">Executive</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="postedWithin">Posted Within</label>
+          <select id="postedWithin" ng-model="filters.postedWithin" ng-change="applyFilters()">
+            <option value="">Any Time</option>
+            <option value="1">Last 24 hours</option>
+            <option value="3">Last 3 days</option>
+            <option value="7">Last week</option>
+            <option value="30">Last month</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+        <!-- Right Side Job Listings -->
+        <div class="job-listings">
+          {% raw %}
+      <div class="job-listing-header">
+        <h2>Available Job Opportunities</h2>
+        <p ng-if="filteredJobs.length > 0">Showing {{filteredJobs.length}} jobs matching your criteria</p>
+        <p ng-if="filteredJobs.length === 0">No jobs found matching your criteria</p>
+      </div>
+
+      
+      <div class="job-item" ng-repeat="job in filteredJobs = (jobs | filter:jobFilter)">
+        <div class="job-header">
+          <div class="job-info" ng-click="goToApplyPage(job.id)">
+            <div class="job-main-details">
+              <h3>{{ job.title }}</h3>
+              <div class="first-row">
+                <span class="company-name">{{ job.company }}</span>
+                <span class="meta-item location">, {{ job.city }}, {{ job.country }}</span>
+              </div>
+              <div class="second-row">
+                <span class="meta-item"><i class="fas fa-briefcase"></i> {{ job.experience }}</span>
+                <span class="meta-item" ng-if="job.show_salary"><i class="fa-solid fa-indian-rupee-sign"></i> {{ job.min_salary }} - {{ job.max_salary }} LPA</span>
+              </div>
+            </div>
+          </div>
+          <div class="company-logo-container">
+            <div class="company-logo" ng-class="{'logo-placeholder': !job.company_logo_url}">
+              <span ng-if="!job.company_logo_url">{{ job.company.charAt(0).toUpperCase() }}</span>
+              <img ng-src="{{ job.company_logo_url }}" alt="{{ job.company }}" ng-if="job.company_logo_url">
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endraw %}
+    </div>
+  </div>
+  </div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="{{ url_for('static', filename='script/navbar.js') }}"></script>
+  <script src="{{ url_for('static', filename='script/jobs.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+<nav class="navbar">
+    <div class="brand">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Jobido Logo" class="logo">
+      Jobido
+      </div>
+    <button class="menu-toggle" ng-click="toggleMenu()">☰</button>
+    {% raw %}
+      <ul class="nav-links" ng-class="{ 'active': menuOpen }">
+        <li ng-repeat="item in navItems" ng-href="{{item.link}}"
+            ng-class="{ 'bordered': item.bordered, 'active': item.isActive }"
+            ng-click="item.name.startsWith('🧑‍💻') ? toggleProfileInfo() : (item.name === 'Login' ? openLoginModal() : null)">
+            <a href="{{ item.link || '#' }}">{{ item.name }}</a>
+        </li>
+      </ul>
+    {% endraw %}
+</nav>

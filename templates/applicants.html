@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <title>Applicants for {{ job_title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/applicants.css') }}">
+</head>
+<body ng-controller="NavbarController">
+    <div class="container">
+        <a href="/postedjobs" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Posted Jobs
+        </a>
+
+        <h1>Applicants for: {{ job_title }} (ID: {{ job_id }})</h1>
+
+        {% if applicants %}
+        <div class="table-responsive">
+            <table class="applicants-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Applied On</th>
+                        <th>Resume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for applicant in applicants %}
+                    <tr>
+                        <td data-label="Name">{{ applicant.name }}</td>
+                        <td data-label="Email">{{ applicant.email }}</td>
+                        <td data-label="Phone">{{ applicant.mobile }}</td>
+                        <td data-label="Applied On">{{ applicant.applied_at }}</td>
+                        <td data-label="Resume">
+                            {% if applicant.resume_filename %}
+                            <a href="/download-resume/{{ applicant.resume_filename }}" target="_blank" class="action-btn view-btn">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            {% else %}
+                            None
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-applicants">
+            <i class="fas fa-users-slash"></i>
+            <p>No applicants found for this job</p>
+        </div>
+        {% endif %}
+    </div>
+
+    
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
+    <script src="{{ url_for('static', filename='script/applicants.js') }}"></script>
+</body>
+</html>

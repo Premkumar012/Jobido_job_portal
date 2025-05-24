@@ -1,0 +1,15 @@
+<!-- Notification System -->
+{%raw%}
+<div class="notification-container" ng-class="{ 'show': showNotification }">
+    <div class="notification" ng-class="notification.type">
+        <i class="notification-icon" ng-class="{
+            'fas fa-check-circle': notification.type === 'success',
+            'fas fa-exclamation-circle': notification.type === 'error'
+        }"></i>
+        <span class="notification-message">{{ notification.message }}</span>
+        <button class="notification-close" ng-click="hideNotification()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+{%endraw%}

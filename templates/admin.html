@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <title>Japido Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="AdminController">
+    <div class="admin-container">
+        <!-- Sidebar Navigation -->
+        <div class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li ng-class="{active: activeTab === 'usercreds'}" ng-click="setActiveTab('usercreds')">
+                    <i class="fas fa-users"></i> User Management
+                </li>
+                <li ng-class="{active: activeTab === 'joblist'}" ng-click="setActiveTab('joblist')">
+                    <i class="fas fa-briefcase"></i> Job Management
+                </li>
+                <li ng-class="{active: activeTab === 'applications'}" ng-click="setActiveTab('applications')">
+                    <i class="fas fa-file-alt"></i> Applications
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <p>Japido &copy; 2025</p>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="admin-content">
+            <!-- User Management Section -->
+            <div class="content-section" ng-show="activeTab === 'usercreds'">
+                {%raw%}
+                <div class="section-header">
+                    <h3><i class="fas fa-users"></i> User Management</h3>
+                    <button class="btn" ng-click="toggleUserForm()">
+                        <i class="fas fa-plus"></i> Add user
+                    </button>
+                </div>
+                {%endraw%}
+
+                <!-- User Form -->
+                <div class="card form-card" ng-show="showUserForm">
+                    <div class="card-body">
+                        <h4 class="card-title">Create New User</h4>
+                        <form name="userForm" ng-submit="createUser()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" class="form-control" ng-model="newUser.fullname" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" ng-model="newUser.email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" ng-model="newUser.password" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>User Type</label>
+                                        <select class="form-control" ng-model="newUser.user_type" required>
+                                            <option value="">Select Type</option>
+                                            <option value="jobSeeker">Job Seeker</option>
+                                            <option value="hr">HR Professional</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success" ng-disabled="userForm.$invalid">
+                                <i class="fas fa-save"></i> Save User
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>User Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="user in users">
+                                        {%raw%}
+                                        <td>{{user.id}}</td>
+                                        <td>{{user.fullname}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td>
+                                            <span class="badge" ng-class="{
+                                                'bg-primary': user.user_type === 'jobSeeker',
+                                                'bg-success': user.user_type === 'hr',
+                                            }">
+                                                {{user.user_type}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            Active
+                                        </td>
+                                         {%endraw%}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Management Section -->
+            <div class="content-section" ng-show="activeTab === 'joblist'">
+                {% raw %}
+                <div class="section-header">
+                    <h3><i class="fas fa-briefcase"></i> Job Management</h3>
+                    <button class="btn" ng-click="toggleJobForm()">
+                        <i class="fas fa-plus"></i> Add Job
+                    </button>
+                </div>
+                {% endraw %}
+
+                <!-- Job Form -->
+                <div class="card form-card" ng-show="showJobForm">
+                    <div class="card-body">
+                        <h4 class="card-title">Create New Job</h4>
+                        <form name="jobForm" ng-submit="submitJob()">
+                            <div class="form-section">
+            <h5><i class="fas fa-info-circle"></i> Job Information</h5>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="jobTitle">Job Title*</label>
+                    <input type="text" id="jobTitle" ng-model="job.title" required>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" ng-model="job.department">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="company">Company Name*</label>
+                    <input type="text" id="company" ng-model="job.company" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobType">Job Type*</label>
+                    <select id="jobType" ng-model="job.type" required>
+                        <option value="">Select Job Type</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Temporary">Temporary</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="experience">Experience Level*</label>
+                    <select id="experience" ng-model="job.experience" required>
+                        <option value="">Select Experience</option>
+                        <option value="Entry Level">Entry Level (0-2 years)</option>
+                        <option value="Mid Level">Mid Level (2-5 years)</option>
+                        <option value="Senior Level">Senior Level (5+ years)</option>
+                        <option value="Executive">Executive</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="education">Education Requirements</label>
+                    <select id="education" ng-model="job.education">
+                        <option value="">Select Education Level</option>
+                        <option value="High School">High School Diploma</option>
+                        <option value="Associate Degree">Associate Degree</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="PhD">PhD</option>
+                        <option value="None">No Formal Education Required</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Information -->
+        <div class="form-section">
+            <h5><i class="fas fa-map-marker-alt"></i> Location</h5>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Country*</label>
+                    <select id="country" ng-model="job.country" required>
+                        <option value="">Select Country</option>
+                        <option value="India">India</option>
+                        <option value="United States">United States</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="city">City*</label>
+                    <input type="text" id="city" ng-model="job.city" required>
+                </div>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="remoteWork" ng-model="job.isRemote">
+                <label for="remoteWork">This is a remote position</label>
+            </div>
+        </div>
+
+        <!-- Job Description -->
+        <div class="form-section">
+            <h5><i class="fas fa-file-alt"></i> Job Description</h5>
+            <div class="form-group">
+                <label for="jobDescription">Detailed Description*</label>
+                <textarea id="jobDescription" rows="5" ng-model="job.description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Requirements*</label>
+                <textarea id="requirements" rows="3" ng-model="job.requirements" required></textarea>
+            </div>
+        </div>
+
+        <!-- Skills and Qualifications -->
+        <div class="form-section">
+            <h5><i class="fas fa-tools"></i> Skills Required</h5>
+            <div class="form-group">
+                <label for="skillsInput">Add Skills (Press Enter after each skill)*</label>
+                <input type="text" id="skillsInput" ng-model="job.skills" placeholder="e.g., Python, React, Project Management" required>
+            </div>
+        </div>
+        
+        <!-- Salary Information -->
+        <div class="form-section">
+            <h5><i class="fa-solid fa-indian-rupee-sign"></i> Salary Information</h5>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="minSalary">Minimum Salary</label>
+                    <input type="number" id="minSalary" ng-model="job.minSalary" placeholder="e.g., 3 (LPA)" ng-change="validateSalary()">
+                </div>
+                <div class="form-group">
+                    <label for="maxSalary">Maximum Salary</label>
+                    <input type="number" id="maxSalary" ng-model="job.maxSalary" placeholder="e.g., 8 (LPA)" ng-change="validateSalary()">
+                </div>
+            </div>
+
+            <!-- Validation message -->
+            <div class="text-danger" ng-show="salaryError">
+                Maximum salary must be greater than minimum salary.
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="showSalary" ng-model="job.showSalary">
+                <label for="showSalary">Display salary range in job posting</label>
+            </div>
+        </div>
+
+        <!-- Application Information -->
+        <div class="form-section">
+            <h5><i class="fas fa-user-tie"></i> Application Details</h5>
+            <div class="form-group">
+                <label for="applicationEmail">Contact Email*</label>
+                <input type="email" class="form-control" id="contact_email" name="contact_email" ng-model="job.contact_email" required>
+                <span class="text-danger" ng-show="jobForm.contact_email.$dirty && jobForm.contact_email.$invalid">
+                Please enter a valid email address.
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="deadline">Application Deadline*</label>
+                <input type="date" 
+                    id="deadline" 
+                    ng-model="job.deadline" 
+                    min="{{ today }}" 
+                    name="deadline"
+                    required>
+                <span class="text-danger" ng-show="jobForm.deadline.$dirty && jobForm.deadline.$error.minDate">
+                    Please select a date from today or later.
+                </span>
+                <span class="text-danger" ng-show="jobForm.deadline.$dirty && jobForm.deadline.$error.required">
+                    Deadline is required.
+                </span>
+            </div>
+        </div>
+
+        <div class="form-button-wrapper">
+            <button type="submit" class="btn-post" ng-disabled="jobForm.$invalid">
+                <i class="fas fa-paper-plane"></i> Post Job Opening
+            </button>
+        </div>
+        </form>
+    </div>
+</div>
+
+                <!-- Jobs Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Company</th>
+                                        <th>Type</th>
+                                        <th>Location</th>
+                                        <th>Contact Details</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="job in jobs">
+                                        {%raw%}
+                                        <td>{{job.id}}</td>
+                                        <td>{{job.title}}</td>
+                                        <td>{{job.company}}</td>
+                                        <td>
+                                            <span class="badge bg-info">{{job.type}}</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="job.is_remote" class="badge bg-warning">Remote</span>
+                                            <span ng-if="!job.is_remote">{{job.city}}, {{job.country}}</span>
+                                        </td>
+                                        <td>
+                                                {{job.contact_email}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-danger" ng-click="deleteJob(job.id)">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </button>
+                                        </td>
+                                        {%endraw%}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications Section -->
+            <div class="content-section" ng-show="activeTab === 'applications'">
+                <div class="section-header">
+                    <h3><i class="fas fa-file-alt"></i> Job Applications</h3>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Applicant</th>
+                                        <th>Job Title</th>
+                                        <th>Company</th>
+                                        <th>Resume</th>
+                                        <th>Applied On</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="applicant in applicants">
+                                        {%raw%}
+                                        <td>{{applicant.name}}</td>
+                                        <td>{{applicant.job_title}}</td>
+                                        <td>{{applicant.company}}</td>
+                                        <td>
+                                            <a ng-if="applicant.resume_filename" 
+                                               ng-href="/download-resume/{{applicant.resume_filename}}" 
+                                               target="_blank" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i> View
+                                            </a>
+                                            <span ng-if="!applicant.resume_filename" class="text-muted">None</span>
+                                        </td>
+                                        <td>{{applicant.applied_at | date:'mediumDate'}}</td>
+                                        <td>
+                                                Applied
+                                        </td>
+                                        
+                                    </tr>
+                                    {%endraw%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      {% include 'notification.html' %}
+
+    <script src="{{ url_for('static', filename='script/admin.js') }}"></script>
+</body>
+</html>

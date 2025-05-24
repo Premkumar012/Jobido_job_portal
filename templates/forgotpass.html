@@ -1,0 +1,64 @@
+<div class="modal-overlay" ng-show="showForgotModal" ng-click="closeForgotModal()">
+    <div class="modal-content" ng-click="$event.stopPropagation()">
+        <h2>Reset Password</h2>
+        <form ng-submit="forgot.emailVerified ? resetPassword() : verifyEmail()">
+            <!-- Email Verification Step -->
+            <div class="form-group" ng-if="!forgot.emailVerified">
+                <label>Email Address</label>
+                <div class="input-group">
+                    <input type="email" class="form-control" 
+                           placeholder="Enter your email" 
+                           ng-model="forgot.email" 
+                           required
+                           ng-disabled="forgot.verificationInProgress">
+                    <div class="user-type-selection">
+                        <label>
+                            <input type="radio" name="userType" ng-model="register.userType" value="jobSeeker" required>
+                            Job Seeker
+                        </label>
+                        <label>
+                            <input type="radio" name="userType" ng-model="register.userType" value="hr">
+                            HR Professional
+                        </label>
+                    </div>
+                    <button class="btn btn-verify" 
+                            type="button"
+                            ng-click="verifyEmail()"
+                            ng-disabled="!forgot.email || forgot.verificationInProgress">
+                        <span ng-if="!forgot.verificationInProgress">Verify</span>
+                        <span ng-if="forgot.verificationInProgress">
+                            <i class="fas fa-spinner fa-spin"></i> Checking...
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Password Reset Step (shown only after email verification) -->
+            <div ng-if="forgot.emailVerified">
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" class="form-control" 
+                           placeholder="Enter new password" 
+                           ng-model="forgot.password" 
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" class="form-control" 
+                           placeholder="Confirm new password" 
+                           ng-model="forgot.confirmpassword" 
+                           required>
+                </div>
+                
+                <button type="submit" class="btn btn-reset">
+                    Reset Password
+                </button>
+            </div>
+        </form>
+        
+        <p class="text-center mt-3">
+            Remember your password? <a href="#" ng-click="switchToLogin()">Login</a>
+        </p>
+    </div>
+</div>

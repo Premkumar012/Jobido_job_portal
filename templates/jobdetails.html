@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+   <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+  <title>{{ job.title }} - Job Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/jobdetails.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body ng-controller="NavbarController">
+    {% include 'notification.html' %}
+    
+  <div class="job-detail-container">
+    <!-- Job Header Section -->
+    <div class="job-header">
+      <div class="job-title-section">
+        <h1 class="job-title">{{ job.title }}</h1>
+        <div class="company-info">
+          <span class="company-name">{{ job.company }}</span>
+          <span class="job-type-badge">{{ job.type }}</span>
+        </div>
+        <div class="job-id-section">
+          <span class="job-id-label"><strong>Job ID:</strong></span>
+          <span class="job-id-value">{{ job.job_id }}</span>
+          <p><i class="fas fa-clock"></i> Posted {{ job.created_at|time_ago }}</p>
+        </div>
+      </div>
+      
+      <button class="apply-button pulse" ng-if="isJobSeeker" ng-click="applyToJob({{job}})">
+        <i class="fas fa-paper-plane"></i> Apply Now
+      </button>
+      <button class="apply-button pulse" ng-if="!isJobSeeker">
+        <i class="fas fa-paper-plane"></i> Only jobseeker can apply
+      </button>
+    </div>
+    
+    <!-- Job Meta Information -->
+    <div class="job-meta-container">
+      <div class="meta-card">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <span class="meta-label">Location</span>
+          <span class="meta-value">{{ job.city }}, {{ job.country }}</span>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <i class="fas fa-laptop-house"></i>
+        <div>
+          <span class="meta-label">Work Mode</span>
+          <span class="meta-value">{{ 'Remote' if job.is_remote else 'On-site' }}</span>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <i class="fas fa-briefcase"></i>
+        <div>
+          <span class="meta-label">Experience</span>
+          <span class="meta-value">{{ job.experience }}</span>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <i class="fas fa-graduation-cap"></i>
+        <div>
+          <span class="meta-label">Education</span>
+          <span class="meta-value">{{ job.education }}</span>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <i class="fa-solid fa-indian-rupee-sign"></i>
+        <div>
+          <span class="meta-label">Salary</span>
+          <span class="meta-value">
+            {% if job.show_salary %}
+              {{ job.min_salary }} - {{ job.max_salary }} LPA
+            {% else %}
+              Not disclosed
+            {% endif %}
+          </span>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <i class="fas fa-calendar-times"></i>
+        <div>
+          <span class="meta-label">Deadline</span>
+          <span class="meta-value">{{ job.deadline }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Job Details Sections -->
+    <div class="job-detail-content">
+      <div class="detail-section">
+        <h3 class="section-title"><i class="fas fa-code"></i> Required Skills</h3>
+        <div class="section-content">{{ job.skills }}</div>
+      </div>
+      
+      <div class="detail-section">
+        <h3 class="section-title"><i class="fas fa-align-left"></i> Job Description</h3>
+        <div class="section-content">{{ job.description }}</div>
+      </div>
+      
+      <div class="detail-section">
+        <h3 class="section-title"><i class="fas fa-list-check"></i> Requirements</h3>
+        <div class="section-content">{{ job.requirements }}</div>
+      </div>
+      
+      <div class="detail-section">
+        <h3 class="section-title"><i class="fas fa-envelope"></i> Contact Information</h3>
+        <div class="contact-info">
+          <p><strong>Email:</strong> {{ job.contact_email }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <a class="back-button" href="/jobs">
+        <i class="fas fa-arrow-left"></i> Back to Listings
+      </a>
+      <button class="apply-button pulse" ng-if="isJobSeeker" ng-click="applyToJob({{job}})">
+        <i class="fas fa-paper-plane"></i> Apply Now
+      </button>
+      <button class="apply-button pulse" ng-if="!isJobSeeker">
+        <i class="fas fa-paper-plane"></i> Only jobseeker can apply
+      </button>
+    </div>
+  </div>
+
+  <!-- Apply Modal -->
+ 
+  
+<div id="applyModal" class="modal" ng-class="{'show': showApplyModal}">
+    <div class="modal-overlay" ng-click="closeApplyModal()"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 ng-model="user.jobtitle">Apply for {{ job.title }}</h2>
+            <span class="close" ng-click="closeApplyModal()">&times;</span>
+        </div>
+        
+        <form ng-submit="submitApplication()">
+            
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" ng-model="user.name" required placeholder="Your Name">
+            </div>
+            
+            <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" ng-model="user.email" required placeholder="yourmail@example.com">
+            </div>
+            
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel"
+                    ng-model="user.mobile"
+                    name="userMobile"
+                    ng-pattern="/^\d{10}$/"
+                    maxlength="10"
+                    required
+                    placeholder="9876543210">
+              <div ng-show="applyForm.userMobile.$touched && applyForm.userMobile.$invalid" class="error">
+                  Enter a valid 10-digit mobile number.
+              </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Upload Resume *</label>
+                <div class="file-upload">
+                    <label for="resumeUpload" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span ng-if="!user.resume">Choose PDF or DOC file</span>
+                        {% raw %}
+                        <span ng-if="user.resume">{{ user.resume.name }}</span>
+                        {% endraw %}
+                    </label>
+                    <input id="resumeUpload" type="file" file-model="user.resume" accept=".pdf,.doc,.docx" required>
+                </div>
+            </div>
+
+            
+            
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" ng-click="closeApplyModal()">Cancel</button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="{{ url_for('static', filename='script/jobdetails.js') }}"></script>
+</body>
+</html>

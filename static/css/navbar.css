@@ -1,0 +1,257 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 80px; 
+  font-family: Arial, sans-serif;
+  background-color: #FDF6EC;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+  background-color: #03266c;
+  color: white;
+  padding: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed; /* Changed to fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  font-family: 'Roboto', sans-serif;
+}
+  
+  .brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    
+  }
+
+  .brand .logo {
+    width: 60px;
+    height: 50px;
+    margin-right: 0px;
+    object-fit: contain;
+  }
+  
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  .nav-links li.bordered a {
+    border: 2px solid #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+
+  .nav-links.active {
+    display: flex;
+    z-index: 1001;        /* Add this */
+    position: absolute;   /* Already present */
+  }
+
+  .profile-info-modal {
+    position: absolute;
+    top: 90px; /* adjust as needed */
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    min-width: 220px;
+    max-width: 90vw; /* limit width on small screens */
+  }
+  
+  .profile-info-modal p {
+    margin: 10px 0;
+    word-wrap: break-word;
+  }
+  
+  .profile-info-modal button {
+    width: 100%;
+    padding: 8px;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .profile-info-modal button:hover {
+    background-color: #e60000;
+  }
+
+  .nav-links li.active a {
+    color: #ffffff; /* White text */
+    font-weight: 600;
+    background-color: #436796; /* Bright blue highlight */
+    padding: 8px 15px;
+    border-radius: 5px; /* More rounded */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* border:2px solid #fff ; */
+    }
+
+    /* Hover effect for better interactivity */
+    .nav-links li a:hover {
+        color: #ffffff;
+        background-color: rgba(255,255,255,0.1);
+        transition: all 0.2s ease;
+        padding: 8px 15px;
+        border-radius: 5px;
+    }
+
+  @media (max-width: 768px) {
+
+    .navbar {
+      justify-content: center; /* Center the brand by default */
+    }
+  
+    .menu-toggle {
+      display: block;
+      position: absolute;
+      left: 20px; /* Push to the left edge */
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  
+    .nav-links {
+      top: 80px;
+      display: none;
+      flex-direction: column;
+      background-color: #e6e7eb;
+      position: absolute;
+      top: 90px; 
+      left: 0;
+      height: 100vh; 
+      width: 50%;
+      z-index: 1000;
+      transition: all 0.3s ease; 
+      
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  
+    
+    .nav-links {
+      transform: translateX(-100%); /* Start off-screen */
+      transition: transform 0.3s ease;
+    }
+  
+  
+    .nav-links.active {
+      transform: translateX(0); /* Slide in */
+    }
+  
+    .nav-links li {
+      border-bottom: 1px solid rgb(4, 11, 101);
+      padding: 15px 20px;
+  
+    }
+  
+    .nav-links li:last-child {
+      border-bottom: none;
+    }
+  
+    .nav-links li a {
+      color: rgb(5, 30, 115);
+      text-decoration: none;
+      display: block;
+      font-weight: 600;
+    }
+
+    .profile-info-modal {
+      top: 55px;
+      right: 10px;
+      padding: 12px;
+      min-width: unset;
+      width: 90%;
+      font-size: 14px;
+      margin-top: 25px;
+    }
+  
+    .profile-info-modal button {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .nav-links li.bordered a {
+      border: 2px solid rgb(5, 30, 115); 
+      padding: 6px 12px;
+      border-radius: 4px;
+      background-color: transparent; 
+      color: #03266c; 
+    }
+
+    .nav-links li.bordered a:hover {
+      background-color: rgb(5, 30, 115); 
+      color: white;
+    }
+
+    .nav-links li.active a {
+      color: #ffffff; /* White text */
+      font-weight: 600;
+      background-color: #02387f; /* Bright blue highlight */
+      padding: 8px 15px;
+      border-radius: 5px; /* More rounded */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      /* border:2px solid #fff ; */
+    }
+
+    /* Hover effect for better interactivity */
+    .nav-links li a:hover {
+        color: #ffffff;
+        background-color: rgba(255,255,255,0.1);
+        transition: all 0.2s ease;
+        padding: 8px 15px;
+        border-radius: 5px;
+    }
+
+    
+}
+
+@media (max-width: 600px) {
+    .profile-info-modal {
+      top: 55px;
+      right: 10px;
+      padding: 12px;
+      min-width: unset;
+      width: 90%;
+      font-size: 14px;
+    }
+  
+    .profile-info-modal button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }

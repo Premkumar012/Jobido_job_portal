@@ -1,0 +1,1122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ffff;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .site-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fdf6ec; /* Ivory background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-logo {
+  height: 80px;
+  width: auto;
+  margin-right: 15px;
+  border-radius: 2px; /* Optional: smooth corners */
+}
+
+
+
+  
+  .navbar {
+    background-color: #2F4F4F;
+    color: white;
+    padding: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; /* Needed for absolute positioning inside */
+  }
+  
+  .brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .brand .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    object-fit: contain;
+  }
+  
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  .nav-links li.bordered a {
+    border: 2px solid #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+
+  .nav-links.active {
+    display: flex;
+    z-index: 1001;        /* Add this */
+    position: absolute;   /* Already present */
+  }
+
+  [ng-cloak] {
+    display: none !important;
+}
+  
+
+  /* Modal styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 8px;
+    width: 400px; 
+    max-width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .modal-content input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 1rem;
+  }
+  
+  .modal-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #03266c;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .modal-content p {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .modal-content a {
+    color: #03266c;
+    text-decoration: none;
+  }
+
+  .password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-container input {
+    width: 100%;
+    padding-right: 40px;
+    padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .password-container i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  .user-type-selection {
+    margin: 15px 0;
+    display: flex;
+    gap: 20px;
+}
+
+.user-type-selection label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.user-type-container {
+    margin: 15px 0;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.user-type-container label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+  .profile-info-modal {
+    position: absolute;
+    top: 80px; 
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    min-width: 220px;
+    max-width: 90vw; /* limit width on small screens */
+  }
+  
+  .profile-info-modal p {
+    margin: 10px 0;
+    word-wrap: break-word;
+  }
+  
+  .profile-info-modal button {
+    width: 100%;
+    padding: 8px;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .profile-info-modal button:hover {
+    background-color: #e60000;
+  }
+
+
+  .hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Set the desired height for the image container */
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the whole container */
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay on top of the image */
+    z-index: 1; /* Make sure the overlay stays below the form */
+  }
+  
+  /* Form Container */
+  .form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the form both vertically and horizontally */
+    background-color: rgba(255, 255, 255, 0.8); /* White background with some transparency */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    z-index: 10; /* Ensure the form is above the overlay */
+  }
+  
+  
+  /* Input Fields */
+  .form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Dropdown Container */
+  .dropdown-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .dropdown-container select {
+    width: 48%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  /* Submit Button */
+  .form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #03266c; /* Slate Gray */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background-color: #61749a; 
+  }
+
+  .cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 50px 20px;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: white; 
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(46, 46, 46, 0.3); /* Dark overlay for better text visibility */
+    z-index: 1;
+}
+
+.card-content {
+    position: relative;
+    z-index: 2; /* Ensure content appears above the overlay */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    /* color: #2F4F4F; */
+    margin-bottom: 20px;
+    color: white !important;
+
+}
+
+.card h3 {
+    /* color: #2F4F4F; */
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: white !important;
+
+}
+
+.card p {
+    /* color: #666; */
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.card-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #03266c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.card-button:hover {
+    background-color: #61749a;
+}
+
+.what-we-do {
+    padding: 60px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.section-header {
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #03266c;
+    margin-bottom: 15px;
+    text-align: center;
+
+}
+
+.section-header p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    text-align: center; 
+
+}
+
+.services-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service {
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background-color: #4564a1;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.service h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.service p {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Top Companies Section */
+.top-companies {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+    overflow: hidden;
+}
+
+.companies-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    align-items: center;
+    padding: 20px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For IE and Edge */
+}
+
+.companies-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari and Opera */
+}
+
+.company {
+    flex: 0 0 auto;
+    width: 160px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    scroll-snap-align: start;
+}
+
+.company img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 80px 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.testimonials-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 40px auto 0;
+}
+
+.testimonial-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 380px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+}
+
+.testimonial-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-icon {
+  color: #03266c;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.testimonial-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  text-align: left;
+}
+
+.author-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 3px solid #61749a;
+}
+
+.author-info h4 {
+  margin: 0;
+  color: #03266c;
+  font-size: 1.1rem;
+}
+
+.author-info p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+
+/* Job Openings Section */
+.job-openings {
+  padding: 80px 20px;
+  background-color: #fff;
+}
+
+.jobs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.job-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 380px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  padding: 25px;
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.job-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.company-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 8px;
+  padding: 5px;
+  background: white;
+  border: 1px solid #eee;
+}
+
+.company-logo-placeholder {
+  width: 60px;
+  height: 60px;
+  background-color: #03266c;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.job-meta {
+  text-align: left;
+  flex: 1;
+}
+
+.job-meta h3 {
+  margin: 0 0 5px;
+  color: #2F4F4F;
+  font-size: 1.2rem;
+}
+
+.job-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.tag.full-time {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.tag.part-time {
+  background-color: #fff8e1;
+  color: #ffa000;
+}
+
+.tag.freelance {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+}
+
+.tag.remote {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.job-details {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.job-details p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.job-details i {
+  color: #61749a;
+  width: 20px;
+  text-align: center;
+}
+
+.apply-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #03266c;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.apply-btn:hover {
+  background-color: #61749a;
+}
+
+.view-all-jobs {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #03266c;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid #03266c;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+  background-color: #03266c;
+  color: white;
+}
+
+/* Newsletter Section */
+.newsletter {
+  background-color: #f8f9fa;
+  padding: 60px 20px;
+}
+
+.newsletter-container {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.newsletter-content {
+  flex: 1;
+  text-align: left;
+}
+
+.newsletter-content h2 {
+  color: #03266c;
+  margin-bottom: 15px;
+}
+
+.newsletter-content p {
+  color: #555;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  max-width: 500px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.newsletter-form button {
+  padding: 12px 25px;
+  background-color: #03266c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  background-color: #61749a;
+}
+
+.newsletter-image {
+  flex: 1;
+  /* display: none; */
+}
+
+.newsletter-image img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+      justify-content: center; /* Center the brand by default */
+    }
+  
+    .menu-toggle {
+      display: block;
+      position: absolute;
+      left: 20px; /* Push to the left edge */
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      background-color: #363535;
+      width: 50%; /* Half width */
+      position: absolute;
+      top: 70px; /* Start after the navbar height */
+      left: 0;
+      height: 100vh; /* Full height */
+      z-index: 1000;
+      transition: all 0.3s ease; /* Smooth transition for slide effect */
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  
+    /* Optional: Adding a slide-in effect */
+    .nav-links {
+      transform: translateX(-100%); /* Start off-screen */
+      transition: transform 0.3s ease;
+    }
+  
+  
+    .nav-links.active {
+      transform: translateX(0); /* Slide in */
+    }
+  
+    .nav-links li {
+      border-bottom: 1px solid white;
+      padding: 15px 20px;
+    }
+  
+    .nav-links li:last-child {
+      border-bottom: none;
+    }
+  
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+    }
+
+
+    .modal-content {
+        width: 80%; /* Adjust to fit mobile screen */
+        padding: 20px; /* Reduce padding */
+      }
+    
+      .modal-content input,
+      .modal-content button {
+        padding: 10px;
+        font-size: 1rem; /* Ensure input and button sizes are appropriate */
+      }
+    
+      .modal-content h2 {
+        font-size: 1.5rem; /* Make heading size slightly smaller on mobile */
+      }
+
+      .hero-image {
+        height: 500px; /* Adjust image height for mobile */
+      }
+    
+      .form-container {
+        top: 20%; /* Reduce top spacing for mobile */
+        left: 50%; /* Make sure the form is horizontally centered */
+        transform: translateX(-50%); /* Adjust for perfect centering horizontally */
+        width: 85%; /* Reduce form width */
+        max-width: 400px; /* Limit max width */
+        padding: 15px; /* Reduce padding for mobile */
+      }
+    
+      /* Stack the dropdowns vertically on mobile */
+      .dropdown-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    
+      .dropdown-container select {
+        width: 100%; /* Make dropdowns full width */
+        margin-bottom: 10px; /* Space between dropdowns */
+      }
+    
+      /* Adjust input field for mobile */
+      .form-container input {
+        font-size: 14px; /* Slightly smaller font */
+      }
+    
+      /* Adjust button font size */
+      .form-container button {
+        font-size: 14px;
+      }
+
+      .cards-container {
+        padding: 30px 15px;
+        gap: 20px;
+    }
+    
+    .card {
+        padding: 25px 20px;
+    }
+    
+    .card-icon {
+        font-size: 2rem;
+    }
+
+     .services-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .service {
+        min-width: 100%;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
+    }
+
+    .companies-container {
+        justify-content: flex-start;
+        padding: 20px;
+        margin: 30px -20px 0;
+        gap: 25px; /* Increased gap between logos */
+    }
+    
+    .company {
+        width: 180px; /* Increased from 140px */
+        height: 90px; /* Increased from 70px */
+        padding: 15px; /* Increased padding */
+        flex: 0 0 auto; /* Ensure fixed size */
+    }
+    
+    .company img {
+        filter: grayscale(0%);
+        opacity: 1;
+        max-width: 95%; /* Allow logos to take more space */
+        max-height: 95%;
+    }
+    
+    .top-companies {
+        padding: 50px 0;
+    }
+
+    /* Add extra space at the end for better scrolling */
+    .companies-container::after {
+        content: '';
+        display: block;
+        min-width: 20px;
+        height: 1px;
+    }
+
+    .testimonials {
+    padding: 60px 15px;
+  }
+  
+  .testimonial-card {
+    min-width: 100%;
+  }
+  
+  
+
+  .job-openings {
+    padding: 60px 15px;
+  }
+  
+  .job-card {
+    min-width: 100%;
+  }
+  
+  .newsletter-container {
+    flex-direction: column;
+  }
+  
+  .newsletter-content {
+    text-align: center;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  
+  .newsletter-image {
+    display: block;
+    margin-top: 30px;
+  }
+}
+  
+
+  @media (max-width: 480px) {
+    .modal-content {
+      width: 90%; /* Further adjust modal for very small screens */
+      padding: 15px; /* Reduce padding for small screens */
+    }
+  
+    .modal-content h2 {
+      font-size: 1.3rem; /* Smaller heading font on very small screens */
+    }
+  
+    .modal-content input,
+    .modal-content button {
+      padding: 12px;
+      font-size: 1.1rem; /* Adjust size for touch interfaces */
+    }
+
+    .cards-container {
+      padding: 20px 10px;
+  }
+  
+  .card {
+      padding: 20px 15px;
+  }
+  
+  .card h3 {
+      font-size: 1.3rem;
+  }
+  
+  .card p {
+      font-size: 0.9rem;
+  }
+  
+  .card-button {
+      padding: 8px 15px;
+  }
+  .companies-container {
+        gap: 20px;
+    }
+    
+    .company {
+        width: 160px; /* Increased from 120px */
+        height: 80px; /* Increased from 60px */
+        padding: 12px;
+        flex: 0 0 auto; /* Override the 50% width */
+    }
+    
+    .top-companies {
+        padding: 40px 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .profile-info-modal {
+      top: 55px;
+      right: 10px;
+      padding: 12px;
+      min-width: unset;
+      width: 90%;
+      font-size: 14px;
+    }
+  
+    .profile-info-modal button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .company {
+        flex: 0 0 calc(25% - 40px);
+    }
+}

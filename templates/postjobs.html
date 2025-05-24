@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <title>Post jobs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/postjobs.css') }}">
+</head>
+<body ng-controller="NavbarController">
+
+{% include 'navbar.html' %}
+
+<div class="job-post-container">
+    <div class="form-header">
+        <h2><i class="fas fa-briefcase"></i> Post a New Job Opening</h2>
+        <p>Fill in the details below to list your job opportunity</p>
+    </div>
+
+    <form name="jobForm" ng-submit="submitJob()" novalidate>
+        <!-- Job Information Section -->
+        <div class="form-section">
+            <h5><i class="fas fa-info-circle"></i> Job Information</h5>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="jobTitle">Job Title*</label>
+                    <input type="text" id="jobTitle" ng-model="job.title" required>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" ng-model="job.department">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="company">Company Name*</label>
+                    <input type="text" id="company" ng-model="job.company" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobType">Job Type*</label>
+                    <select id="jobType" ng-model="job.type" required>
+                        <option value="">Select Job Type</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Temporary">Temporary</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="experience">Experience Level*</label>
+                    <select id="experience" ng-model="job.experience" required>
+                        <option value="">Select Experience</option>
+                        <option value="Entry Level">Entry Level (0-2 years)</option>
+                        <option value="Mid Level">Mid Level (2-5 years)</option>
+                        <option value="Senior Level">Senior Level (5+ years)</option>
+                        <option value="Executive">Executive</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="education">Education Requirements</label>
+                    <select id="education" ng-model="job.education">
+                        <option value="">Select Education Level</option>
+                        <option value="High School">High School Diploma</option>
+                        <option value="Associate Degree">Associate Degree</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="PhD">PhD</option>
+                        <option value="None">No Formal Education Required</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Information -->
+        <div class="form-section">
+            <h5><i class="fas fa-map-marker-alt"></i> Location</h5>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Country*</label>
+                    <select id="country" ng-model="job.country" required>
+                        <option value="">Select Country</option>
+                        <option value="India">India</option>
+                        <option value="United States">United States</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="city">City*</label>
+                    <input type="text" id="city" ng-model="job.city" required>
+                </div>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="remoteWork" ng-model="job.isRemote">
+                <label for="remoteWork">This is a remote position</label>
+            </div>
+        </div>
+
+        <!-- Job Description -->
+        <div class="form-section">
+            <h5><i class="fas fa-file-alt"></i> Job Description</h5>
+            <div class="form-group">
+                <label for="jobDescription">Detailed Description*</label>
+                <textarea id="jobDescription" rows="5" ng-model="job.description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Requirements*</label>
+                <textarea id="requirements" rows="3" ng-model="job.requirements" required></textarea>
+            </div>
+        </div>
+
+        <!-- Skills and Qualifications -->
+        <div class="form-section">
+            <h5><i class="fas fa-tools"></i> Skills Required</h5>
+            <div class="form-group">
+                <label for="skillsInput">Add Skills (Press Enter after each skill)*</label>
+                <input type="text" id="skillsInput" ng-model="job.skills" placeholder="e.g., Python, React, Project Management" required>
+            </div>
+        </div>
+        
+        <!-- Salary Information -->
+        <div class="form-section">
+            <h5><i class="fa-solid fa-indian-rupee-sign"></i> Salary Information</h5>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="minSalary">Minimum Salary</label>
+                    <input type="number" id="minSalary" ng-model="job.minSalary" placeholder="e.g., 3 (LPA)" ng-change="validateSalary()">
+                </div>
+                <div class="form-group">
+                    <label for="maxSalary">Maximum Salary</label>
+                    <input type="number" id="maxSalary" ng-model="job.maxSalary" placeholder="e.g., 8 (LPA)" ng-change="validateSalary()">
+                </div>
+            </div>
+
+            <!-- Validation message -->
+            <div class="text-danger" ng-show="salaryError">
+                Maximum salary must be greater than minimum salary.
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="showSalary" ng-model="job.showSalary">
+                <label for="showSalary">Display salary range in job posting</label>
+            </div>
+        </div>
+
+        <!-- Application Information -->
+        <div class="form-section">
+            <h5><i class="fas fa-user-tie"></i> Application Details</h5>
+            <div class="form-group">
+                <label for="applicationEmail">Contact Email*</label>
+                <input type="email" class="form-control" id="contact_email" name="contact_email" ng-model="job.contact_email" required>
+                <span class="text-danger" ng-show="jobForm.contact_email.$dirty && jobForm.contact_email.$invalid">
+                Please enter a valid email address.
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="deadline">Application Deadline*</label>
+                <input type="date" 
+                    id="deadline" 
+                    ng-model="job.deadline" 
+                    min="{{ today }}" 
+                    name="deadline"
+                    required>
+                <span class="text-danger" ng-show="jobForm.deadline.$dirty && jobForm.deadline.$error.minDate">
+                    Please select a date from today or later.
+                </span>
+                <span class="text-danger" ng-show="jobForm.deadline.$dirty && jobForm.deadline.$error.required">
+                    Deadline is required.
+                </span>
+            </div>
+        </div>
+
+        <div class="form-button-wrapper" ng-if="isHR">
+            <button type="submit" class="btn-post" ng-disabled="jobForm.$invalid">
+                <i class="fas fa-paper-plane"></i> Post Job Opening
+            </button>
+        </div>
+
+        <div class="alert alert-warning" ng-if="!isHR">
+            <strong>Note:</strong> Only HR users are allowed to post job openings.
+        </div>
+    </form>
+</div>
+
+<!-- Include your modals and other components -->
+{% include 'login.html' %}
+{% include 'register.html' %}
+{% include 'profile.html' %}
+{% include 'notification.html' %}
+{% include 'forgotpass.html' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="{{ url_for('static', filename='script/navbar.js') }}"></script>
+<script src="{{ url_for('static', filename='script/postjobs.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fdf6ec; /* Ivory background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-logo {
+  height: 80px;
+  width: auto;
+  margin-right: 15px;
+  border-radius: 2px; /* Optional: smooth corners */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #03266c;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Back Link */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #03266c;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #61749a;
+    text-decoration: underline;
+}
+
+/* Table Styles */
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.applicants-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.applicants-table th {
+    background-color: #03266c;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.applicants-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.applicants-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Action Buttons */
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.download-btn {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.download-btn:hover {
+    background-color: #d0e3fa;
+}
+
+.view-btn {
+    background-color: #eae8f5;
+    color: #383c8e;
+    text-decoration: none;
+}
+
+.view-btn:hover {
+    background-color: #d9d7eb;
+}
+
+/* No Applicants Message */
+.no-applicants {
+    text-align: center;
+    padding: 40px 20px;
+    color: #7f8c8d;
+}
+
+.no-applicants i {
+    font-size: 2.5rem;
+    color: #bdc3c7;
+    margin-bottom: 15px;
+}
+
+.no-applicants p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    padding: 25px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #7f8c8d;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal-body {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    max-height: 60vh;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    background-color: #fafafa;
+}
+
+/* Add these styles to your existing CSS */
+
+/* Modal Header Actions */
+.modal-header-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.download-icon {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #e3f2fd;
+    transition: all 0.3s;
+}
+
+.download-icon:hover {
+    background-color: #d0e3fa;
+}
+
+/* Resume Viewer */
+#resumeViewer {
+    width: 100%;
+    height: 70vh;
+    border: 1px solid #eee;
+    background-color: #f5f5f5;
+    overflow: auto;
+}
+
+/* PDF View */
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+}
+
+/* Image View */
+.resume-image {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Loading State */
+.loading-resume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #7f8c8d;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .applicants-table {
+        border: 0;
+    }
+    
+    .applicants-table thead {
+        display: none;
+    }
+    
+    .applicants-table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    
+    .applicants-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        border-bottom: 1px solid #eee;
+        text-align: right;
+    }
+    
+    .applicants-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 15px;
+        color: #2c3e50;
+    }
+    
+    .applicants-table td:last-child {
+        border-bottom: 0;
+    }
+    
+    .action-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    .no-applicants i {
+        font-size: 2rem;
+    }
+    
+    .no-applicants p {
+        font-size: 1rem;
+    }
+}

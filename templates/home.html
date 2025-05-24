@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <title>Jobido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body ng-controller="NavbarController">
+
+    {% include 'navbar.html' %}
+
+     <!-- Form Above Image -->
+     <div class="hero-image-container">
+        <img src="https://img.freepik.com/premium-photo/woman-is-sitting-table-with-paper-that-says-happy-be-job_1006603-12308.jpg?ga=GA1.1.308180132.1725383183&semt=ais_hybrid&w=740" alt="Banner Image" class="hero-image">
+        <div class="hero-overlay"></div>
+        
+        <!-- Form Container Centered in Image -->
+        <!-- In your home.html, update the form to use GET method and proper action -->
+        <div class="form-container">
+            <form method="GET" id="jobSearchForm">
+                <!-- Input box -->
+                <input type="text" name="keywords" placeholder="Enter job title or keywords">
+                
+                <!-- Dropdowns -->
+                <div class="dropdown-container">
+                    <select name="location">
+                        <option value="">Select Location</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                    </select>
+                    
+                    <select name="jobType">
+                        <option value="">Select Job Type</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Freelance">Freelance</option>
+                    </select>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit">Search Jobs</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- What We Do Section -->
+    <div class="what-we-do">
+        <div class="section-header">
+            <h2>What We Do</h2>
+            <p>Connecting talent with opportunity through innovative solutions</p>
+        </div>
+        
+        <div class="services-container">
+            <div class="service">
+                <div class="service-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Job Matching</h3>
+                <p>Our advanced algorithms match candidates with the most suitable job opportunities based on skills and preferences.</p>
+            </div>
+            
+            <div class="service">
+                <div class="service-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Talent Acquisition</h3>
+                <p>We help employers find the right talent through our extensive network of qualified professionals.</p>
+            </div>
+            
+            <div class="service">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Career Growth</h3>
+                <p>Resources and tools to help job seekers advance their careers and reach their professional goals.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Companies Section -->
+    <div class="top-companies">
+        <div class="section-header">
+            <h2>Our Top Hiring Partners</h2>
+            <p>Trusted by leading companies across industries</p>
+        </div>
+        
+        <div class="companies-scroll-container">
+            <div class="companies-container">
+                <div class="company">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/1200px-HP_logo_2012.svg.png" alt="HP">
+                </div>
+                <div class="company">
+                    <img src="https://tse2.mm.bing.net/th?id=OIP.XAoVInDdeBvivBWlS5Z-BQHaFj&pid=Api&P=0&h=180" alt="Intel">
+                </div>
+                <div class="company">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="Apple">
+                </div>
+                <div class="company">
+                    <img src="https://freelogopng.com/images/all_img/1656618586microsoft-logo-png.png" alt="Microsoft">
+                </div>
+                <div class="company">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.LsbGszXb6d5PzHnaQF0syAHaBj&pid=Api&P=0&h=180" alt="Samsung">
+                </div>
+                <div class="company">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.TBH61HtaIx5tQoisyWv_lwHaDO&pid=Api&P=0&h=180" alt="IBM">
+                </div>
+                <div class="company">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png" alt="Amazon">
+                </div>
+                <div class="company">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.O5QFvoluagQvI5hm41otwQHaEc&pid=Api&P=0&h=180" alt="Google">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="cards-container">
+        <!-- Job Seeker Card -->
+        <div class="card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://img.freepik.com/premium-photo/human-resource-management-recruitment-concept-manpower-human-resource-planning_1126722-13498.jpg?ga=GA1.1.308180132.1725383183&semt=ais_hybrid&w=740');">
+            <div class="card-content">
+                <div class="card-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>For Job Seekers</h3>
+                <p>Find your dream job with our extensive database of opportunities across various industries and locations.</p>
+                <a href="/jobs" class="card-button">Find Jobs</a>
+            </div>
+        </div>
+        
+        <!-- Employer Card -->
+        <div class="card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://img.freepik.com/premium-photo/businesswoman-touching-human-resources-sign-hr-hrm-hrd-concept-which-is-staff-icons-human_926199-3010566.jpg?w=1380');">
+            <div class="card-content">
+                <div class="card-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>For Employers</h3>
+                <p>Post jobs and find the perfect candidates for your company with our advanced recruitment tools.</p>
+                <a href="/postjobs" class="card-button" >Post Jobs</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="section-header">
+        <h2>Success Stories</h2>
+        <p>What our users say about their experience</p>
+      </div>
+      
+      <div class="testimonials-container">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="quote-icon">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="testimonial-text">
+              "Jobido helped me find my dream job in just 2 weeks! The personalized recommendations were spot on."
+            </p>
+            <div class="testimonial-author">
+              <img src="https://img.freepik.com/free-photo/front-view-man-working-as-real-estate-agent_23-2151064882.jpg?ga=GA1.1.308180132.1725383183&semt=ais_hybrid&w=740" alt="Saran K." class="author-avatar">
+              <div class="author-info">
+                <h4>Saran K.</h4>
+                <p>Software Developer at Microsoft</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="quote-icon">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="testimonial-text">
+              "As an employer, we found 3 perfect candidates within days of posting. The quality of applicants was outstanding."
+            </p>
+            <div class="testimonial-author">
+              <img src="https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951369.jpg?ga=GA1.1.308180132.1725383183&semt=ais_hybrid&w=740" alt="Rajesh P." class="author-avatar">
+              <div class="author-info">
+                <h4>Rajesh P.</h4>
+                <p>HR Manager at TechSolutions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="quote-icon">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="testimonial-text">
+              "The career resources helped me negotiate a 20% higher salary than I expected. Worth every minute spent!"
+            </p>
+            <div class="testimonial-author">
+              <img src="https://img.freepik.com/free-photo/gymnast-getting-ready-competition_23-2150868049.jpg?ga=GA1.1.308180132.1725383183&semt=ais_hybrid&w=740" alt="Priya M." class="author-avatar">
+              <div class="author-info">
+                <h4>Priya M.</h4>
+                <p>Marketing Specialist at Google</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Job Openings Section -->
+    <section class="job-openings">
+      <div class="section-header">
+        <h2>Recent Job Openings</h2>
+        <p>Explore the latest opportunities from top companies</p>
+      </div>
+      
+      <div class="jobs-container">
+        {% for job in recent_jobs %}
+        <div class="job-card">
+          <div class="job-header">
+            {% if job.company_logo %}
+            <img src="{{ job.company_logo }}" alt="{{ job.company }}" class="company-logo">
+            {% else %}
+            <div class="company-logo-placeholder">
+              {{ job.company[0]|upper if job.company else 'J' }}
+            </div>
+            {% endif %}
+            <div class="job-meta">
+              <h3>{{ job.title }}</h3>
+              <div class="job-tags">
+                <span class="tag {{ job.type.lower().replace(' ', '-') if job.type else 'full-time' }}">
+                  {{ job.type if job.type else 'Full-time' }}
+                </span>
+                {% if job.is_remote %}
+                <span class="tag remote">Remote</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="job-details">
+            <p><i class="fas fa-map-marker-alt"></i> {{ job.city }}, {{ job.country }}</p>
+            {% if job.show_salary %}
+            <p><i class="fas fa-money-bill-wave"></i> ₹{{ job.min_salary }} - ₹{{ job.max_salary }} LPA</p>
+            {% else %}
+            <p><i class="fas fa-money-bill-wave"></i> Not disclosed</p>
+            {% endif %}
+            <p><i class="fas fa-clock"></i> Posted {{ job.created_at|time_ago }}</p>
+          </div>
+          <a href="/job/{{ job.id }}" class="apply-btn">Apply Now</a>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <div class="view-all-jobs">
+        <a href="/jobs" class="view-all-btn">View All Job Openings <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+      <div class="newsletter-container">
+        <div class="newsletter-content">
+          <h2>Get Job Alerts</h2>
+          <p>Subscribe to receive the latest job openings matching your profile</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="newsletter-image">
+          <img src="https://img.freepik.com/free-vector/email-campaign-concept-illustration_114360-1633.jpg" alt="Newsletter illustration">
+        </div>
+      </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+
+    
+    <!-- Login Modal -->
+    {% include 'login.html' %}
+
+    {% include 'forgotpass.html' %}
+    {% include 'notification.html' %}
+    <!-- Register Modal -->
+    {% include 'register.html' %}
+
+    {% include 'profile.html' %}
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='script/home.js') }}"></script>
+    <script src="{{ url_for('static', filename='script/navbar.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,318 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #ffff;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .site-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fdf6ec; /* Ivory background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-logo {
+  height: 80px;
+  width: auto;
+  margin-right: 15px;
+  border-radius: 2px; /* Optional: smooth corners */
+}
+  
+  /* Desktop Layout (default) */
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: nowrap; /* prevent wrapping */
+    max-width: 80%;
+    height: 85vh; /* fixed height for layout */
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+  }
+  
+  .filter-panel-wrapper {
+    width: 30%;
+    background-color: white;
+    border-radius: 7px;
+    border: 1px solid #161616;
+    height: 100%;         /* Fill the height of .container */
+    overflow-y: auto; /* Allow vertical scroll */
+     scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none; 
+    
+  }
+  
+  
+  .filter-panel {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    /* border-right: 1px solid #161616; */
+    box-sizing: border-box;
+  }
+  
+  .filter-panel h3 {
+    margin-bottom: 15px;
+  }
+  
+  .filter-panel label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .filter-panel select,
+  .filter-panel input,
+  .filter-panel button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  
+
+  .job-listings {
+    width: 60%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 7px;
+    /* border: 1px solid #161616; */
+    height: 100%;         /* Fill the height of .container */
+    overflow-y: auto;     /* Scroll only this area */
+
+     scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none; 
+  }
+  
+  .job-details {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    transition: all 0.3s ease;
+  }
+  
+  .job-item {
+    transition: background-color 0.3s ease;
+    background-color: white;
+    padding: 10px;
+    border-radius: 6px; 
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* 👈 shadow added */
+    margin-bottom: 15px; /* 👈 spacing between items */
+  }
+
+  .job-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger shadow on hover */
+}
+
+
+  .job-item h3{
+    color: #03266c;
+    font-size: 18px;
+  }
+  .job-item p{
+    color: #03266c;
+    font-size: 15px;
+  }
+  
+ 
+
+  .job-listing-header {
+    margin-bottom: 20px;
+  }
+  
+  .job-listing-header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
+  .job-listing-header p {
+    color: #555;
+    font-size: 14px;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    
+  }
+  
+  .job-info {
+    flex-grow: 1;
+    cursor: pointer;
+  }
+  
+  .apply-btn {
+    background-color: #B76E79;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .apply-btn:hover {
+    background-color: #9e5a64;
+  }
+
+  /* .modal {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 15px;
+  }
+  
+  .modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #B76E79;
+    color: white;
+    cursor: pointer;
+  
+  }
+  
+  .modal-buttons button:hover {
+    background-color: #9e5a64;
+  } */
+
+  .logo-placeholder {
+  width: 60px;
+  height: 60px;
+  background-color: #03266c;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.profile-info-modal {
+    position: absolute;
+    top: 90px; /* adjust as needed */
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    min-width: 220px;
+    max-width: 90vw; /* limit width on small screens */
+  }
+  
+  
+  
+  /* ✅ Mobile Responsive */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      padding: 10px;
+      max-width: 100%;
+      gap: 10px;
+      
+    }
+  
+    .filter-panel-wrapper {
+      overflow-x: auto;
+      width: 100%;
+      height: 18%;  
+    }
+  
+    .filter-panel {
+      display: flex;
+      flex-direction: row;
+      width: max-content;
+      padding: 10px;
+      gap: 10px;
+      border: none;
+      width: 100%;
+    }
+  
+    .filter-item {
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+  
+    .filter-panel label {
+      font-size: 12px;
+    }
+  
+    .filter-panel select,
+    .filter-panel input,
+    .filter-panel button {
+      width: 100%;
+      font-size: 14px;
+    }
+  
+    .desktop-only {
+      display: none;
+    }
+  
+    .job-listings {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* .modal-content {
+      margin: 50% auto;
+      width: 80%;
+      padding: 15px;
+      font-size: 14px;
+    }
+  
+    .modal-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .modal-buttons button {
+      width: 100%;
+    } */
+  }
+  
