@@ -4,12 +4,12 @@ angular.module('jobApp', [])
         // Get the user's email from session or local storage
         const user = JSON.parse(localStorage.getItem('user'));
         var userEmail = user.email; // Replace with actual logic to get email
-
+        $scope.appliedJobs = [];
         // Fetch applied jobs for the user
         $http.get('/api/applied-jobs', { params: { email: userEmail } })
             .then(function(response) {
                 // Store the applied jobs in the scope
-                $scope.appliedJobs = response.data.applied_jobs;
+                $scope.appliedJobs = response.data.applied_jobs || [];
             }, function(error) {
                 console.error('Error fetching applied jobs:', error);
             });

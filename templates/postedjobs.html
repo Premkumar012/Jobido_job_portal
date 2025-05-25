@@ -85,10 +85,10 @@
             </div>
 
             <div class="no-jobs-message" ng-if="postedJobs.length === 0">
-                <img src="{{ url_for('static', filename='images/no-jobs.svg') }}" alt="No jobs posted">
+                <i class="fa-solid fa-handshake-slash"></i>
                 <h3>You haven't posted any jobs yet</h3>
                 <p>Start by posting your first job opportunity</p>
-                <a href="/post-job" class="btn-post-job">Post a Job</a>
+                <a href="/postjobs" class="btn-post-job">Post a Job</a>
             </div>
         </div>
     </div>

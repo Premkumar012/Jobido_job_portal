@@ -255,10 +255,10 @@ body {
     padding: 3rem 1rem;
 }
 
-.no-jobs-message img {
-    max-width: 300px;
-    margin-bottom: 1.5rem;
-    opacity: 0.8;
+.no-jobs-message i {
+    font-size: 2.5rem;
+    color: #bdc3c7;
+    margin-bottom: 15px;
 }
 
 .no-jobs-message h3 {
